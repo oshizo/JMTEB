@@ -43,7 +43,7 @@ class ClusteringEvaluator(EmbeddingEvaluator):
 
         logger.info("Converting validation data to embeddings...")
         val_embeddings = model.batch_encode_with_cache(
-            [item.text for item in self.val_dataset],
+            [f"{self.query_prefix}{item.text}" for item in self.val_dataset],
             cache_path=Path(cache_dir) / "val_embeddings.bin" if cache_dir is not None else None,
             overwrite_cache=overwrite_cache,
         )
@@ -55,7 +55,7 @@ class ClusteringEvaluator(EmbeddingEvaluator):
             test_labels = val_labels
         else:
             test_embeddings = model.batch_encode_with_cache(
-                [item.text for item in self.test_dataset],
+                [f"{self.query_prefix}{item.text}" for item in self.test_dataset],
                 cache_path=Path(cache_dir) / "test_embeddings.bin" if cache_dir is not None else None,
                 overwrite_cache=overwrite_cache,
             )

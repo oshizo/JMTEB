@@ -20,6 +20,11 @@ class SentenceBertEmbedder(TextEmbedder):
         self.batch_size = batch_size
         self.device = device
         self.normalize_embeddings = normalize_embeddings
+        # BGE-m3のmax_seq_lengthが長くOOMになるため、とりあえず制限
+        if self.model.max_seq_length > 1024:
+            self.model.max_seq_length = 1024
+        # prefix取得のため
+        self.model_name_or_path = model_name_or_path
 
     def encode(self, text: str | list[str]) -> np.ndarray:
         return self.model.encode(

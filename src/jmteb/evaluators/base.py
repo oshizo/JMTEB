@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from os import PathLike
 from typing import Any
 
-from pydantic.dataclasses import dataclass
+from pydantic.dataclasses import dataclass, Field
 
 from jmteb.embedders import TextEmbedder
 
@@ -35,6 +35,9 @@ class EvaluationResults:
 
 class EmbeddingEvaluator(ABC):
     """Abstract evaluator class."""
+
+    query_prefix: str = Field(default="")
+    passage_prefix: str = Field(default="")
 
     @abstractmethod
     def __call__(
