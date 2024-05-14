@@ -1,0 +1,66 @@
+{
+    "intfloat/multilingual-e5-small": {
+        "query": "query: {text}",
+        "passage": "passage: {text}"
+    },
+    "intfloat/multilingual-e5-base": {
+        "query": "query: {text}",
+        "passage": "passage: {text}"
+    },
+    "intfloat/multilingual-e5-large": {
+        "query": "query: {text}",
+        "passage": "passage: {text}"
+    },
+    "intfloat/multilingual-e5-large-instruct": {
+        "query": {
+            "amazon_review_classification": "Instruct: Classify the given Amazon review into its appropriate rating category.\nQuery: {text}",
+            "amazon_counterfactual_classification": "Instruct: Classify a given Amazon customer review text as either counterfactual or not counterfactual.\nQuery: {text}",
+            "massive_intent_classification": "Instruct: Given a user utterance as query, find the user intents.\nQuery: {text}",
+            "massive_scenario_classification": "Instruct: Given a user utterance as query, find the user scenarios.\nQuery: {text}",
+            "livedoor_news": "Instruct: Classify Livedoor news articles into topics based on their titles and contents.\nQuery: {text}",
+            "mewsc16": "Instruct: Classify Wikipedia news articles into topics based on their titles.\nQuery: {text}",
+            "jsts": "Instruct: Retrieve semantically similar text.\nQuery: {text}",
+            "jsick": "Instruct: Retrieve semantically similar text.\nQuery: {text}",
+            "paws_x_ja": "Instruct: Determine if the given two sentences are paraphrases of each other.\nQuery: {text}"
+        }
+    },
+    "intfloat/e5-mistral-7b-instruct": {
+        "query": {
+            "amazon_review_classification": "Instruct: Classify the given Amazon review into its appropriate rating category.\nQuery: {text}",
+            "amazon_counterfactual_classification": "Instruct: Classify a given Amazon customer review text as either counterfactual or not counterfactual.\nQuery: {text}",
+            "massive_intent_classification": "Instruct: Given a user utterance as query, find the user intents.\nQuery: {text}",
+            "massive_scenario_classification": "Instruct: Given a user utterance as query, find the user scenarios.\nQuery: {text}",
+            "livedoor_news": "Instruct: Classify Livedoor news articles into topics based on their titles and contents.\nQuery: {text}",
+            "mewsc16": "Instruct: Classify Wikipedia news articles into topics based on their titles.\nQuery: {text}",
+            "jsts": "Instruct: Retrieve semantically similar text.\nQuery: {text}",
+            "jsick": "Instruct: Retrieve semantically similar text.\nQuery: {text}",
+            "paws_x_ja": "Instruct: Determine if the given two sentences are paraphrases of each other.\nQuery: {text}"
+        }
+    },
+    "oshizo/japanese-e5-mistral-7b_slerp": {
+        "query": {
+            "amazon_review_classification": "Instruct: Classify the given Amazon review into its appropriate rating category.\nQuery: {text}",
+            "amazon_counterfactual_classification": "Instruct: Classify a given Amazon customer review text as either counterfactual or not counterfactual.\nQuery: {text}",
+            "massive_intent_classification": "Instruct: Given a user utterance as query, find the user intents.\nQuery: {text}",
+            "massive_scenario_classification": "Instruct: Given a user utterance as query, find the user scenarios.\nQuery: {text}",
+            "livedoor_news": "Instruct: Classify Livedoor news articles into topics based on their titles and contents.\nQuery: {text}",
+            "mewsc16": "Instruct: Classify Wikipedia news articles into topics based on their titles.\nQuery: {text}",
+            "jsts": "Instruct: Retrieve semantically similar text.\nQuery: {text}",
+            "jsick": "Instruct: Retrieve semantically similar text.\nQuery: {text}",
+            "paws_x_ja": "Instruct: Determine if the given two sentences are paraphrases of each other.\nQuery: {text}"
+        }
+    },
+    "oshizo/japanese-e5-mistral-1.9b": {
+        "query": {
+            "amazon_review_classification": "Instruct: Classify the given Amazon review into its appropriate rating category.\nQuery: {text}",
+            "amazon_counterfactual_classification": "Instruct: Classify a given Amazon customer review text as either counterfactual or not counterfactual.\nQuery: {text}",
+            "massive_intent_classification": "Instruct: Given a user utterance as query, find the user intents.\nQuery: {text}",
+            "massive_scenario_classification": "Instruct: Given a user utterance as query, find the user scenarios.\nQuery: {text}",
+            "livedoor_news": "Instruct: Classify Livedoor news articles into topics based on their titles and contents.\nQuery: {text}",
+            "mewsc16": "Instruct: Classify Wikipedia news articles into topics based on their titles.\nQuery: {text}",
+            "jsts": "Instruct: Retrieve semantically similar text.\nQuery: {text}",
+            "jsick": "Instruct: Retrieve semantically similar text.\nQuery: {text}",
+            "paws_x_ja": "Instruct: Determine if the given two sentences are paraphrases of each other.\nQuery: {text}"
+        }
+    }
+}

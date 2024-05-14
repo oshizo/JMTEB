@@ -36,8 +36,8 @@ class EvaluationResults:
 class EmbeddingEvaluator(ABC):
     """Abstract evaluator class."""
 
-    query_prefix: str = Field(default="")
-    passage_prefix: str = Field(default="")
+    query_template: str = Field(default="{text}")
+    passage_template: str = Field(default="{text}")
 
     @abstractmethod
     def __call__(

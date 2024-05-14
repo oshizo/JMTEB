@@ -16,7 +16,7 @@ def main(
     evaluators: dict[str, EmbeddingEvaluator],
     save_dir: str | None = None,
     overwrite_cache: bool = False,
-    prefixes: str | None = None,
+    prompt_templates: str | None = None,
     model_name_or_path: str | None = None
 ):
     logger.info(f"Start evaluating the following tasks\n{list(evaluators.keys())}")
@@ -26,12 +26,12 @@ def main(
 
     score_recorder = JsonScoreRecorder(save_dir)
 
-    if prefixes:
-        with open(prefixes) as f:
-            prefixes = json.load(f)
+    if prompt_templates:
+        with open(prompt_templates) as f:
+            prompt_templates = json.load(f)
 
     print("--------------------")
-    print(prefixes)
+    print(prompt_templates)
     print("--------------------")
 
     for eval_name, evaluator in evaluators.items():
@@ -41,30 +41,30 @@ def main(
         if save_dir is not None:
             cache_dir = Path(save_dir) / "cache" / eval_name
 
-        if prefixes:
-            query_prefix = ""
-            passage_prefix = ""
+        if prompt_templates:
+            query_template = ""
+            passage_template = ""
 
             model_id = text_embedder.model_name_or_path
             task = eval_name
             print(f"model_id:{model_id}, task:{task}")
-            if model_id in prefixes:
-                if "query" in prefixes[model_id]:
-                    if type(prefixes[model_id]["query"]) == str:
-                        query_prefix = prefixes[model_id]["query"]
+            if model_id in prompt_templates:
+                if "query" in prompt_templates[model_id]:
+                    if type(prompt_templates[model_id]["query"]) == str:
+                        query_template = prompt_templates[model_id]["query"]
                     else:
-                        if task in prefixes[model_id]["query"]:
-                            query_prefix = prefixes[model_id]["query"][task]
-                if "passage" in prefixes[model_id]:
-                    if type(prefixes[model_id]["passage"]) == str:
-                        passage_prefix = prefixes[model_id]["passage"]
+                        if task in prompt_templates[model_id]["query"]:
+                            query_template = prompt_templates[model_id]["query"][task]
+                if "passage" in prompt_templates[model_id]:
+                    if type(prompt_templates[model_id]["passage"]) == str:
+                        passage_template = prompt_templates[model_id]["passage"]
                     else:
-                        if task in prefixes[model_id]["passage"]:
-                            passage_prefix = prefixes[model_id]["passage"][task]
-                evaluator.query_prefix = query_prefix
-                evaluator.passage_prefix = passage_prefix
+                        if task in prompt_templates[model_id]["passage"]:
+                            passage_template = prompt_templates[model_id]["passage"][task]
+                evaluator.query_template = query_template
+                evaluator.passage_template = passage_template
 
-        print(f"query:{query_prefix}, passage:{passage_prefix}")
+        print(f"query:{query_template}, passage:{passage_template}")
         metrics = evaluator(text_embedder, cache_dir=cache_dir, overwrite_cache=overwrite_cache)
 
 
@@ -96,7 +96,7 @@ if __name__ == "__main__":
     parser.add_argument("--save_dir", type=str, default=None, help="Directory to save the outputs")
     parser.add_argument("--overwrite_cache", type=bool, default=False, help="Overwrite the save_dir if it exists")
     parser.add_argument("--eval_exclude", type=list[str], default=None, help="Evaluators to exclude.")
-    parser.add_argument("--prefixes", type=str, default=str(Path(__file__).parent / "configs" / "prefixes.json"), help="Path to the prefix file")
+    parser.add_argument("--prompt_templates", type=str, default=str(Path(__file__).parent / "configs" / "prompt_templates.json"), help="Path to the prefix file")
 
     args = parser.parse_args()
 
@@ -121,5 +121,5 @@ if __name__ == "__main__":
         evaluators=args.evaluators,
         save_dir=args.save_dir,
         overwrite_cache=args.overwrite_cache,
-        prefixes=args.prefixes,
+        prompt_templates=args.prompt_templates,
     )

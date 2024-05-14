@@ -37,7 +37,7 @@ class STSEvaluator(EmbeddingEvaluator):
             Path(cache_dir).mkdir(parents=True, exist_ok=True)
 
         val_embeddings1, val_embeddings2, val_golden_scores = self._convert_to_embeddings(
-            model, self.val_dataset, "dev", overwrite_cache, cache_dir, self.query_prefix
+            model, self.val_dataset, "dev", overwrite_cache, cache_dir, self.query_template
         )
         if self.val_dataset == self.test_dataset:
             test_embeddings1, test_embeddings2, test_golden_scores = (
@@ -46,7 +46,7 @@ class STSEvaluator(EmbeddingEvaluator):
                 val_golden_scores,
             )
         test_embeddings1, test_embeddings2, test_golden_scores = self._convert_to_embeddings(
-            model, self.test_dataset, "test", overwrite_cache, cache_dir, self.query_prefix
+            model, self.test_dataset, "test", overwrite_cache, cache_dir, self.query_template
         )
 
         similarity_functions = {
@@ -105,15 +105,15 @@ class STSEvaluator(EmbeddingEvaluator):
         split: str = "test",
         overwrite_cache: bool = False,
         cache_dir: str | None = None,
-        query_prefix: str = ""
+        query_template: str = ""
     ) -> tuple[Tensor, Tensor, list[float]]:
         embeddings1 = model.batch_encode_with_cache(
-            [f"{query_prefix}{item.sentence1}"  for item in dataset],
+            [query_template.format(text=item.sentence1)  for item in dataset],
             cache_path=Path(cache_dir) / f"{split}_embeddings1.bin" if cache_dir is not None else None,
             overwrite_cache=overwrite_cache,
         )
         embeddings2 = model.batch_encode_with_cache(
-            [f"{query_prefix}{item.sentence2}"  for item in dataset],
+            [query_template.format(text=item.sentence2)  for item in dataset],
             cache_path=Path(cache_dir) / f"{split}_embeddings2.bin" if cache_dir is not None else None,
             overwrite_cache=overwrite_cache,
         )

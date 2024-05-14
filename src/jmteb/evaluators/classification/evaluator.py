@@ -59,14 +59,14 @@ class ClassificationEvaluator(EmbeddingEvaluator):
 
         logger.info("Encoding training and validation sentences...")
         X_train = model.batch_encode_with_cache(
-            [f"{self.query_prefix}{item.text}" for item in self.train_dataset],
+            [self.query_template.format(text=item.text) for item in self.train_dataset],
             cache_path=Path(cache_dir) / "train_embeddings.bin" if cache_dir is not None else None,
             overwrite_cache=overwrite_cache,
         )
         y_train = [item.label for item in self.train_dataset]
 
         X_val = model.batch_encode_with_cache(
-            [f"{self.query_prefix}{item.text}" for item in self.val_dataset],
+            [self.query_template.format(text=item.text) for item in self.val_dataset],
             cache_path=Path(cache_dir) / "val_embeddings.bin" if cache_dir is not None else None,
             overwrite_cache=overwrite_cache,
         )
@@ -78,7 +78,7 @@ class ClassificationEvaluator(EmbeddingEvaluator):
             y_test = y_val
         else:
             X_test = model.batch_encode_with_cache(
-                [f"{self.query_prefix}{item.text}" for item in self.test_dataset],
+                [self.query_template.format(text=item.text) for item in self.test_dataset],
                 cache_path=Path(cache_dir) / "test_embeddings.bin" if cache_dir is not None else None,
                 overwrite_cache=overwrite_cache,
             )
